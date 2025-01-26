@@ -1,6 +1,6 @@
 Vagrant.configure("2") do |config|
-  # Specify the Ubuntu box
-  config.vm.box = "generic/ubuntu2204" # Change to the Ubuntu version you need
+  # config.vm.box = "generic/ubuntu2204"
+  config.vm.box = "centos/7"
 
   # Provision with a shell script
   config.vm.provision "shell", inline: <<-SHELL
@@ -10,8 +10,7 @@ Vagrant.configure("2") do |config|
 
     # Create users
     for user in "${innocuous_users[@]}"; do
-      sudo adduser --disabled-password --gecos "" $user
-      echo "$user:$password" | sudo chpasswd
+      sudo useradd -c "User Account" -m -p "$password" -s "/bin/bash" $user
     done
   SHELL
 end
