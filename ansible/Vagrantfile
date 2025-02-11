@@ -1,0 +1,28 @@
+Vagrant.configure("2") do |config|
+  config.ssh.password = "vagrant"
+
+  config.vm.define "ubuntu" do |ubuntu|
+    ubuntu.vm.box = "generic/ubuntu2204"
+  end
+
+  config.vm.define "debian" do |debian|
+    debian.vm.box = "generic/debian11"
+  end
+
+  config.vm.define "arch" do |arch|
+    arch.vm.box = "generic/arch"
+  end
+
+  config.vm.define "alpine" do |alpine|
+    alpine.vm.box = "generic/alpine318"
+  end
+
+  # config.vm.define "rocky" do |rocky|
+  #   rocky.vm.box = "generic/rocky9"
+  # end
+
+  # config.vm.define "centos" do |centos|
+  #   centos.vm.box = "centos/7"
+  # end
+
+end

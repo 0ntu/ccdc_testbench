@@ -1,0 +1,16 @@
+# Nmap 7.95 scan initiated Sun Feb  9 16:35:05 2025 as: /usr/lib/nmap/nmap -sn -oN ansible.scan 192.168.121.0/24
+Nmap scan report for 192.168.121.1
+Host is up (0.00021s latency).
+MAC Address: 52:54:00:3D:7F:80 (QEMU virtual NIC)
+Nmap scan report for arch (192.168.121.49)
+Host is up (0.00019s latency).
+MAC Address: 52:54:00:46:DB:4F (QEMU virtual NIC)
+Nmap scan report for alpine318 (192.168.121.150)
+Host is up (0.000071s latency).
+MAC Address: 52:54:00:69:5D:95 (QEMU virtual NIC)
+Nmap scan report for ubuntu2204 (192.168.121.210)
+Host is up (0.00012s latency).
+MAC Address: 52:54:00:3E:57:A4 (QEMU virtual NIC)
+Nmap scan report for kali (192.168.121.87)
+Host is up.
+# Nmap done at Sun Feb  9 16:35:07 2025 -- 256 IP addresses (5 hosts up) scanned in 1.90 seconds
