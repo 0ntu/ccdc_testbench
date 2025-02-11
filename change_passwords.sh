@@ -77,13 +77,13 @@ echo "${loginshell_users[*]}"
 echo
 
 # Accounts with existing passwords
-existingpassword_users=($(awk -F: '($2 !~ /^[!*]$/) { print $1 }' /etc/shadow))
+existingpassword_users=($(awk -F: '($2 !~ /^[!*]*$/) { print $1 }' /etc/shadow))
 echo "[${#existingpassword_users[@]}] Accounts with existing passwords:"
 echo "${existingpassword_users[*]}"
 echo
 
 # Scan for root accounts (UID 0/GID 0)
-root_users=($(awk -F: '($3 == 0) || ($4 == 0) { print $1 }' /etc/passwd))
+root_users=($(awk -F: '($3 == 0) { print $1 }' /etc/passwd))
 echo "[${#root_users[@]}] Root Accounts (UID 0):"
 echo "${root_users[*]}"
 echo

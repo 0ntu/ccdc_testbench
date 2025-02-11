@@ -1,9 +1,9 @@
 Vagrant.configure("2") do |config|
   # config.vm.box = "generic/ubuntu2204"
   # config.vm.box = "generic/debian9"
-  # config.vm.box = "centos/7"
+  config.vm.box = "centos/7"
   # config.vm.box = "generic/gentoo"
-  config.vm.box = "generic/alpine318"
+  # config.vm.box = "generic/alpine318"
   # config.vm.box = "generic/opensuse42"
   # config.vm.box = "generic/arch"
   # config.vm.box = "nixbox/nixos"
@@ -19,16 +19,26 @@ Vagrant.configure("2") do |config|
     uid0_users=( "remo" "remy" "ren" "rena" "renae" "renata" )
     password="password"
 
-    # Create users
-    if command -v "useradd" 2>&1 /dev/null; then
+    # Create innocuous users
       for user in "${innocuous_users[@]}"; do
-        sudo useradd -c "User Account" -m -p "$password" -s "$(bash)" $user
+        if command -v "useradd" 2>&1 /dev/null; then
+          sudo useradd -c "User Account" -m -p "$password" -s "$(bash)" $user
+        else
+          sudo adduser --disabled-password --gecos "" $user
+          echo "$user:$password" | chpasswd
+        fi
       done
-    else      # alpine doesn't have useradd
-      for user in "${innocuous_users[@]}"; do
-        sudo adduser --disabled-password --gecos "" $user
-        echo "$user:$password" | chpasswd
+
+    # Create root users
+      for user in "${uid0_users[@]}"; do
+        if command -v "useradd" 2>&1 /dev/null; then
+          sudo useradd -c "Root Account" -m -p "$password" -s "$(bash)" -u 0 -o -g 0 $user
+        else
+          sudo adduser --uid 0 --ingroup root --disabled-password --gecos "" $user
+          echo "$user:$password" | chpasswd
+        fi
       done
-    fi
   SHELL
+
+  config.vm.provision "file", source: "./change_passwords.sh", destination: "~/change_passwords.sh"
 end
