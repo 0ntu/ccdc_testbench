@@ -21,7 +21,7 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.define "alpine" do |alpine|
-    alpine.vm.box = "generic/alpine318"
+    alpine.vm.box = "generic/alpine319"
   end
 
   # config.vm.define "freebsd" do |freebsd|
@@ -49,7 +49,7 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.define "opensuse" do |opensuse|
-    opensuse.vm.box = "generic/opensuse42"
+    opensuse.vm.box = "generic/opensuse15"
   end
 
 end
