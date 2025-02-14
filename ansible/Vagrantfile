@@ -1,5 +1,4 @@
 Vagrant.configure("2") do |config|
-  config.ssh.password = "vagrant"
 
   config.vm.define "ubuntu" do |ubuntu|
     ubuntu.vm.box = "generic/ubuntu2204"
@@ -17,12 +16,19 @@ Vagrant.configure("2") do |config|
     alpine.vm.box = "generic/alpine318"
   end
 
-  # config.vm.define "rocky" do |rocky|
-  #   rocky.vm.box = "generic/rocky9"
-  # end
+  config.vm.define "freebsd" do |freebsd|
+    freebsd.vm.box = "generic/freebsd11"
+    freebsd.vm.provision "shell", inline: <<-SHELL
+     sed -i '' 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+     service sshd restart
+    SHELL
+  end
 
-  # config.vm.define "centos" do |centos|
-  #   centos.vm.box = "centos/7"
-  # end
-
+  config.vm.define "centos" do |centos|
+    centos.vm.box = "generic/centos8"
+    centos.vm.provision "shell", inline: <<-SHELL
+     sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+     systemctl restart sshd.service
+    SHELL
+  end
 end
