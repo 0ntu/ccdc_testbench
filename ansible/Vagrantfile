@@ -1,11 +1,19 @@
 Vagrant.configure("2") do |config|
 
+  config.vm.provider "libvirt" do |v|
+    v.memory = 2048
+  end
+
   config.vm.define "ubuntu" do |ubuntu|
     ubuntu.vm.box = "generic/ubuntu2204"
   end
 
   config.vm.define "debian" do |debian|
     debian.vm.box = "generic/debian11"
+    debian.vm.provider "libvirt" do |debianv|
+      debianv.memory = 4096
+      debianv.cpus = 4
+    end
   end
 
   config.vm.define "arch" do |arch|
@@ -16,13 +24,13 @@ Vagrant.configure("2") do |config|
     alpine.vm.box = "generic/alpine318"
   end
 
-  config.vm.define "freebsd" do |freebsd|
-    freebsd.vm.box = "generic/freebsd11"
-    freebsd.vm.provision "shell", inline: <<-SHELL
-     sed -i '' 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
-     service sshd restart
-    SHELL
-  end
+  # config.vm.define "freebsd" do |freebsd|
+  #   freebsd.vm.box = "generic/freebsd11"
+  #   freebsd.vm.provision "shell", inline: <<-SHELL
+  #    sed -i '' 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+  #    service sshd restart
+  #   SHELL
+  # end
 
   config.vm.define "centos" do |centos|
     centos.vm.box = "generic/centos8"
@@ -31,4 +39,17 @@ Vagrant.configure("2") do |config|
      systemctl restart sshd.service
     SHELL
   end
+
+  config.vm.define "fedora" do |fedora|
+    fedora.vm.box = "generic/fedora28"
+    fedora.vm.provision "shell", inline: <<-SHELL
+     sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+     systemctl restart sshd.service
+    SHELL
+  end
+
+  config.vm.define "opensuse" do |opensuse|
+    opensuse.vm.box = "generic/opensuse42"
+  end
+
 end
