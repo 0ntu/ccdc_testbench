@@ -3,7 +3,10 @@ ansible_connection=ssh
 ansible_user=vagrant
 ansible_ssh_pass=vagrant
 
-[linux]
-192.168.121.49
-192.168.121.150
-192.168.121.210
+[aio]
+192.168.121.44
+
+[agents]
+192.168.121.20
+192.168.121.135
+192.168.121.149

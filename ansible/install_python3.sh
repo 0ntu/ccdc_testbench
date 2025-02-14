@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-# Detect the package manager and install python3 accordingly
 if [ -f /etc/os-release ]; then
     . /etc/os-release
     case "$ID" in
